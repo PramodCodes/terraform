@@ -17,7 +17,6 @@ variable "instance_type" {
 
 variable "tags" {
     default = {
-        Name = "Hello TF"
         Project = "roboshop"
         Environment = "dev"
         Component = "web"

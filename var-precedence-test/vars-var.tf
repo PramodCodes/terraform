@@ -1,1 +1,4 @@
-instance_type = "-vars-file"
+variable "instance_type" {
+    type = string
+    default = "-vars-file"
+}

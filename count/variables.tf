@@ -33,3 +33,9 @@ variable "r53-zone_id" {
     type = string
     default = "Z056232231439EYIBQD0B"
 }
+
+variable "domain_name" {
+    type = string
+    default = "pka.in.net"
+}   
+ 

@@ -7,11 +7,11 @@ resource "aws_instance" "web" {
     }
 }
 
-# resource "aws_route53_record" "www" {
-#   count   = 11
-#   zone_id = var.r53-zone_id
-#   name    = "{var.instance_names[count.index]}.pka.in.net" #variable part will have $ and block
-#   type    = "A"
-#   ttl     = 60
-#   records = [aws_instance.web[count.index].private_ip]
-# }
+resource "aws_route53_record" "www" {
+  count   = 11
+  zone_id = var.r53-zone_id
+  name    = "{var.instance_names[count.index]}.${var.domain_name}" #variable part will have $ and block
+  type    = "A"
+  ttl     = 60
+  records = [var.instance_names[count.index] == "web" ? aws_instance.web[count.index].public_ip : aws_instance.web[count.index].private_ip]
+}

@@ -5,3 +5,10 @@ variables/.terraform/providers/registry.terraform.io/hashicorp/aws/5.81.0/window
 variables/.terraform.lock.hcl
 var-precedence-test/.terraform/providers/registry.terraform.io/hashicorp/aws/5.81.0/windows_amd64/LICENSE.txt
 *.exe
+locals/.idea/inspectionProfiles/profiles_settings.xml
+locals/.idea/locals.iml
+locals/.idea/misc.xml
+locals/.idea/modules.xml
+locals/.idea/vcs.xml
+locals/.terraform.lock.hcl
+locals/.terraform/providers/registry.terraform.io/hashicorp/aws/5.81.0/windows_amd64/LICENSE.txt

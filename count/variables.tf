@@ -1,6 +1,6 @@
 variable "instance_names" {
-    type = list(string)
-    default = [ "mongodb","web","redis","user","mysql","rabbitmq","catalogue","redis","cart","shipping","payment","dispatch" ]
+    type = list
+    default = [ "mongodb","web","redis","user","mysql","rabbitmq","catalogue","cart","shipping","payment","dispatch" ]
 }
 
 variable "ami_id" {
@@ -15,9 +15,14 @@ variable "instance_name" {
 }
 # tags are maps so 
 
-variable "instance_type" {
+variable "instance_t2-micro" {
     type = string
     default = "t2.micro"
+}
+
+variable "instance_t3-small" {
+    type = string
+    default = "t3.small"
 }
 
 variable "tags" {

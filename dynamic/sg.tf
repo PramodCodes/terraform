@@ -1,59 +1,26 @@
+resource "aws_security_group" "roboshop-all" { #this is terraform name, for terraform reference only
+    name        = "dynamic_demo"
+    description = "dynamic_demo"
+    #vpc_id      = aws_vpc.main.id
 
-resource "aws_security_group" "dynamic_demoSG" {
-  name        = "dynamic-demo"
-  description = "dynamic demo"
-  tags = {
-    Name = "dynamic_demoSG"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  description = "Allow port 80"
-  security_group_id = aws_security_group.dynamic_demoSG.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 80
-  ip_protocol       = "tcp"
-  to_port           = 80
-  
-  tags = {
-    Name = "dynamic_demoSG"
-  }
-}
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  description = "Allow port 443"
-  security_group_id = aws_security_group.dynamic_demoSG.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 443
-  ip_protocol       = "tcp"
-  to_port           = 443
-  
-  tags = {
-    Name = "dynamic_demoSG"
-  }
-}
-
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  description = "Allow port 22"
-  security_group_id = aws_security_group.dynamic_demoSG.id
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 22
-  ip_protocol       = "tcp"
-  to_port           = 22
-  
-  tags = {
-    Name = "dynamic_demoSG"
-  }
-}
-
-resource "aws_vpc_security_group_egress_rule" "allow_out_traffic" {
-  security_group_id = aws_security_group.dynamic_demoSG.id
-
-  cidr_ipv4         = "0.0.0.0/0"
-  from_port         = var.outbound-from-to-port
-  ip_protocol       = "tcp"
-  to_port           = var.outbound-from-to-port
-  
+  dynamic ingress { # ingress became dynamic ingress
+      for_each = var.ingress_data #from variable
+      content{
+          description      = ingress.value["description"]
+          from_port        = ingress.value["from_port"]
+          to_port          = ingress.value["to_port"]
+          protocol         = ingress.value["protocol"]
+          cidr_blocks      = ingress.value["cidr_blocks"]        
+      }
+    }
+    
+    egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    }
     tags = {
-    Name = "dynamic_demoSG"
-  }
+        Name = "dynamic-demo"
+    }
 }
